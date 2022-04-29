@@ -1,13 +1,10 @@
 package com.example.newtetstask.service.impl;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Optional;
 import com.example.newtetstask.model.Role;
 import com.example.newtetstask.model.User;
 import com.example.newtetstask.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,12 +19,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        if (user == null) throw new UsernameNotFoundException(username);
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        if (userOptional.isEmpty()) {
+            throw new UsernameNotFoundException(username);
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+        User user = userOptional.get();
+        org.springframework.security.core.userdetails.User.UserBuilder builder =
+                org.springframework.security.core.userdetails.User.withUsername(username);
+        builder.password(user.getPassword());
+        builder.authorities(user.getRoles().stream().map(Role::getName).toArray(String[]::new));
+        return builder.build();
     }
 }
