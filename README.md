@@ -32,5 +32,3 @@ This application is a queue in which the user can become
 2. db.url=YOUR_URL
 3. db.user=YOUR_NAME
 4. db.password=YOUR_PASSWORD
-
-- Simply run application on your computer. You should Postman API to send Get, Post, Delete, Put requests to the webserver.
