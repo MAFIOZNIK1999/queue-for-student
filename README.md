@@ -26,7 +26,7 @@ This application is a queue in which the user can become
 ### To run this app locally:
 - Fork this project to your repository
 - Clone project locally and open it in IntelliJ IDEA
-- Install PostgreSQL
+- [Install PostgreSQL](https://www.postgresql.org/download/)
 - Change properties for the folliwing line in db.properties file:
 1. db.driver=YOUR_DRIVER
 2. db.url=YOUR_URL
