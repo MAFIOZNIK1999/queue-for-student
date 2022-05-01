@@ -16,7 +16,7 @@ This application is a queue in which the user can become
 - Java (JDK version 11)
 - PostgreSQL database
 - Hibernate
-- Spring (Spring Core, Spring Security, Spring Web)
+- Spring Boot(Spring Core, Spring Security, Spring Web)
 - JSON
 - Maven (version 3.6.3)
 - Bootstrap
@@ -30,5 +30,5 @@ This application is a queue in which the user can become
 - Change properties for the folliwing line in db.properties file:
 1. db.driver=YOUR_DRIVER
 2. db.url=YOUR_URL
-3. db.user=YOUR_NAME
+3. db.username=YOUR_NAME
 4. db.password=YOUR_PASSWORD
